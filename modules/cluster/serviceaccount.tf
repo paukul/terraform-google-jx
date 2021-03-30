@@ -24,6 +24,19 @@ resource "google_project_iam_member" "build_controller_sa_storage_admin_binding"
 }
 
 // ----------------------------------------------------------------------------
+// Cluster
+resource "google_service_account" "cluster_nodepool_sa" {
+  provider     = google
+  account_id   = "${var.cluster_name}-np"
+  display_name = substr("Cluster node pool service account for cluster ${var.cluster_name}", 0, 100)
+}
+
+resource "google_project_iam_member" "cluster_nodepool_sa_cloud_platform_binding" {
+  provider = google
+  role     = "roles/TODO"
+}
+
+// ----------------------------------------------------------------------------
 // Kaniko
 resource "google_service_account" "kaniko_sa" {
   provider     = google
